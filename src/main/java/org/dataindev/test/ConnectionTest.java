@@ -14,7 +14,9 @@ public class ConnectionTest {
             Statement stmt = con.createStatement();
             stmt.execute("SELECT * FROM PRODUCTO");
             ResultSet rs = stmt.getResultSet();
-            System.out.println(rs);
+            while (rs.next()){
+                System.out.println(rs.getString("nombre"));
+            }
 
         }catch(Exception e){
             throw new RuntimeException();
