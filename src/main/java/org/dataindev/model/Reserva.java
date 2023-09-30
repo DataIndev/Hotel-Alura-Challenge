@@ -1,20 +1,15 @@
 package org.dataindev.model;
+import lombok.*;
+import java.sql.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import java.time.LocalDate;
-
-@Entity
+@Getter@Setter
+@AllArgsConstructor
 public class Reserva {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long numeroReserva;
-    private LocalDate checkIn;
-    private LocalDate checkOut;
+    private Date checkIn;
+    private Date checkOut;
     private float valor;
     private String formaDePago;
+
 
 }
