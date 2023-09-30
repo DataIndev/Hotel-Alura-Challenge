@@ -1,30 +1,35 @@
 package org.dataindev.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Entity
-@Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter@Setter
 public class Huesped {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String apellido;
     private LocalDate fechaNacimiento;
     private String nacionalidad;
     private String telefono;
-    private Long numeroReserva;
+    private Long idReserva;
 
+    public Huesped(Long id, String nombre, String apellido, LocalDate fechaNacimiento, String nacionalidad, String telefono, Long idReserva) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNacimiento = fechaNacimiento;
+        this.nacionalidad = nacionalidad;
+        this.telefono = telefono;
+        this.idReserva = idReserva;
+    }
 
-
+    public Huesped(String nombre, String apellido, LocalDate fechaNacimiento, String nacionalidad, String telefono, Long idReserva) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNacimiento = fechaNacimiento;
+        this.nacionalidad = nacionalidad;
+        this.telefono = telefono;
+        this.idReserva = idReserva;
+    }
 }
