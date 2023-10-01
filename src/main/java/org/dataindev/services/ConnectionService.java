@@ -42,7 +42,6 @@ public class ConnectionService {
             return this.dataSource.getConnection();
         }
         catch(Exception e){
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

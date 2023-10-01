@@ -12,14 +12,12 @@ public class ConnectionTest {
 
         try{
             Statement stmt = con.createStatement();
-            stmt.execute("SELECT * FROM PRODUCTO");
+            stmt.execute("SELECT * FROM huespedes");
             ResultSet rs = stmt.getResultSet();
             while (rs.next()){
-                System.out.println(rs.getString("nombre"));
             }
 
         }catch(Exception e){
-            throw new RuntimeException();
         }
 
         System.out.println(con);
