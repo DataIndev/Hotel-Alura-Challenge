@@ -87,9 +87,9 @@ public class HuespedDAO {
         }
     }
 
-    public void eliminar(Integer id) {
+    public void eliminar(Long id) {
         try (PreparedStatement stm = connection.prepareStatement("DELETE FROM huespedes WHERE id = ?")) {
-            stm.setInt(1, id);
+            stm.setLong(1, id);
             stm.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
