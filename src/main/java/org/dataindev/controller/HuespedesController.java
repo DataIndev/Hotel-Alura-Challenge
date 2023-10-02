@@ -9,7 +9,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class HuespedesController {
-    private final HuespedDAO huespedDAO;
+    private HuespedDAO huespedDAO;
 
     public HuespedesController() {
         Connection connection = new ConnectionService().recoveryConnection();

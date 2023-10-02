@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HuespedDAO {
-    private final Connection connection;
+    private Connection connection;
 
     public HuespedDAO(Connection connection) {
         this.connection = connection;
