@@ -1,25 +1,22 @@
 package org.dataindev.views;
 
-import java.awt.EventQueue;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-
 import com.toedter.calendar.JDateChooser;
 import org.dataindev.controller.HuespedesController;
 import org.dataindev.controller.ReservasController;
 import org.dataindev.model.Huesped;
+import org.dataindev.model.Reserva;
 
-import java.awt.Font;
-import java.awt.SystemColor;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
-import java.awt.Toolkit;
 
 public class RegistroHuesped extends JFrame {
 
+    private static Reserva nuevaReserva;
     private final JPanel contentPane;
     private final JTextField txtNombre;
     private final JTextField txtApellido;
@@ -33,19 +30,23 @@ public class RegistroHuesped extends JFrame {
     private final HuespedesController huespedesController;
     private final ReservasController reservasController;
 
-
+    /**
+     * Launch the application.
+     */
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
-                RegistroHuesped frame = new RegistroHuesped();
+                RegistroHuesped frame = new RegistroHuesped(nuevaReserva.getId());
                 frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
     }
-
-    public RegistroHuesped() {
+        /**
+     * Create the frame.
+     */
+    public RegistroHuesped(Integer id) {
         this.huespedesController = new HuespedesController();
         this.reservasController = new ReservasController();
 
