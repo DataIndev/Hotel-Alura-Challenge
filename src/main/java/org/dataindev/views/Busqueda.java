@@ -16,7 +16,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.sql.Date;
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,9 +32,8 @@ public class Busqueda extends JFrame {
 	private JLabel labelExit;
 	int xMouse, yMouse;
 	private String reserva, huespedes;
-
-	private  ReservasController reservaController;
-	private  HuespedesController huespedesController;
+	private final HuespedesController huespedesController;
+	private final  ReservasController reservaController;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -58,7 +56,7 @@ public class Busqueda extends JFrame {
 		this.reservaController = new ReservasController();
 		this.huespedesController = new HuespedesController();
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Busqueda.class.getResource("/imagenes/lupa2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Busqueda.class.getResource("/org/dataindev/views/imagenes/lupa2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 571);
 		contentPane = new JPanel();
@@ -90,7 +88,7 @@ public class Busqueda extends JFrame {
 
 		tbHuespedes = new JTable();
 		tbHuespedes.setFont(new Font("Roboto", Font.PLAIN, 16));
-		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")), tbHuespedes, null);
+		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/org/dataindev/views/imagenes/pessoas.png")), tbHuespedes, null);
 		modeloHuesped = (DefaultTableModel) tbHuespedes.getModel();
 		modeloHuesped.addColumn("Numero de Huesped");
 		modeloHuesped.addColumn("Nombre");
@@ -104,7 +102,7 @@ public class Busqueda extends JFrame {
 
 		tbReservas = new JTable();
 		tbReservas.setFont(new Font("Roboto", Font.PLAIN, 16));
-		panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), tbReservas, null);
+		panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/org/dataindev/views/imagenes/reservado.png")), tbReservas, null);
 		modelo = (DefaultTableModel) tbReservas.getModel();
 		modelo.addColumn("Numero de Reserva");
 		modelo.addColumn("Fecha Check In");
@@ -118,7 +116,7 @@ public class Busqueda extends JFrame {
 
 		JLabel logo = new JLabel("");
 		logo.setBounds(56, 51, 104, 107);
-		logo.setIcon(new ImageIcon(Busqueda.class.getResource("/imagenes/Ha-100px.png")));
+		logo.setIcon(new ImageIcon(Busqueda.class.getResource("/org/dataindev/views/imagenes/Ha-100px.png")));
 		contentPane.add(logo);
 
 		JPanel header = new JPanel();
@@ -369,7 +367,6 @@ public class Busqueda extends JFrame {
 
 	private void LlenarTablaHuespedes() {
 		System.out.println("LlenarTablaHuespedes Ejecutada");
-		//Llenar Tabla
 		List<Huesped> huesped = BuscarHuespedes();
 		try {
 			for (Huesped huespedes : huesped) {
@@ -381,7 +378,7 @@ public class Busqueda extends JFrame {
 	}
 
 	private void LlenarTablaHuespedesId() {
-		System.out.println("llenarTablaHuespedesId Ejecutada");
+		System.out.println("LlenarTablaHuespedesId Ejecutada");
 		List<Huesped> huesped = BuscarHuespedesId();
 		try {
 			for (Huesped huespedes : huesped) {

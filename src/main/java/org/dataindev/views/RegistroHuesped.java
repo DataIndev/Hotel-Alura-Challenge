@@ -33,9 +33,7 @@ public class RegistroHuesped extends JFrame {
     private final HuespedesController huespedesController;
     private final ReservasController reservasController;
 
-    /**
-     * Launch the application.
-     */
+
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
@@ -46,9 +44,7 @@ public class RegistroHuesped extends JFrame {
             }
         });
     }
-        /**
-     * Create the frame.
-     */
+
     public RegistroHuesped() {
         this.huespedesController = new HuespedesController();
         this.reservasController = new ReservasController();
