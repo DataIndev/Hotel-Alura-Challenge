@@ -1,21 +1,12 @@
 package org.dataindev.views;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
-import javax.swing.JTextField;
-import javax.swing.JSeparator;
-import java.awt.SystemColor;
-import java.awt.Font;
-import javax.swing.JPasswordField;
-import javax.swing.SwingConstants;
-import java.awt.event.*;
-import java.io.Serial;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.Objects;
 
 public class Login extends JFrame {
 
@@ -68,7 +59,7 @@ public class Login extends JFrame {
 		JLabel imgHotel = new JLabel("");
 		imgHotel.setBounds(0, 0, 304, 538);
 		panel_1.add(imgHotel);
-		imgHotel.setIcon(new ImageIcon(Login.class.getResource("/org/dataindev/views/imagenes/img-hotel-login-.png")));
+		imgHotel.setIcon(new ImageIcon(Objects.requireNonNull(Login.class.getResource("/org/dataindev/views/imagenes/img-hotel-login-.png"))));
 		
 		JPanel btnexit = new JPanel();
 		btnexit.setBounds(251, 0, 53, 36);
@@ -203,7 +194,7 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/org/dataindev/views/imagenes/lOGO-50PX.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(Objects.requireNonNull(Login.class.getResource("/org/dataindev/views/imagenes/lOGO-50PX.png"))));
 		lblNewLabel_1.setBounds(65, 65, 48, 59);
 		panel.add(lblNewLabel_1);
 		

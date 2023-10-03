@@ -252,11 +252,18 @@ public class ReservasView extends JFrame {
 		txtFechaSalida.getCalendarButton().setBounds(267, 1, 21, 31);
 		txtFechaSalida.setBackground(Color.WHITE);
 		txtFechaSalida.setFont(new Font("Roboto", Font.PLAIN, 18));
-		txtFechaSalida.addPropertyChangeListener(new PropertyChangeListener() {
+		txtFechaEntrada.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				//Activa el evento, después del usuario seleccionar las fechas se debe calcular el valor de la reserva
+				calcularValor(txtFechaEntrada, txtFechaSalida);
 			}
 		});
+
+		txtFechaSalida.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				calcularValor(txtFechaEntrada, txtFechaSalida);
+			}
+		});
+
 		txtFechaSalida.setDateFormatString("yyyy-MM-dd");
 		txtFechaSalida.getCalendarButton().setBackground(SystemColor.textHighlight);
 		txtFechaSalida.setBorder(new LineBorder(new Color(255, 255, 255), 0));
@@ -302,34 +309,40 @@ public class ReservasView extends JFrame {
 	}
 
 	private void guardarReserva() {
-		String fechaE = ((JTextField)txtFechaEntrada.getDateEditor().getUiComponent()).getText();
-		String fechaS = ((JTextField)txtFechaSalida.getDateEditor().getUiComponent()).getText();
-		Reserva nuevaReserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS),txtValor.getText(),txtFormaPago.getSelectedItem().toString());
-		reservasController.guardar(nuevaReserva);
+		String fechaE = ((JTextField) txtFechaEntrada.getDateEditor().getUiComponent()).getText();
+		String fechaS = ((JTextField) txtFechaSalida.getDateEditor().getUiComponent()).getText();
+		String valorReserva = txtValor.getText();
 
-		JOptionPane.showMessageDialog(null,"Registro Guardado con éxito " + nuevaReserva.getId());
+		if (fechaE.isEmpty() || fechaS.isEmpty() || valorReserva.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
+		} else {
+			Reserva nuevaReserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS), valorReserva, txtFormaPago.getSelectedItem().toString());
+			reservasController.guardar(nuevaReserva);
 
-		RegistroHuesped huesped = new RegistroHuesped(nuevaReserva.getId());
-		huesped.setVisible(true);
-		dispose();
+			JOptionPane.showMessageDialog(null, "Registro Guardado con éxito " + nuevaReserva.getId());
+
+			RegistroHuesped huesped = new RegistroHuesped(nuevaReserva.getId());
+			huesped.setVisible(true);
+			dispose();
+		}
 	}
 
-
-	private void calcularValor(JDateChooser fechaE,JDateChooser fechaS) {
-		if(fechaE.getDate() != null && fechaS.getDate() !=null) {
-			Calendar inicio = fechaE.getCalendar();
-			Calendar fin = fechaS.getCalendar();
-			int dias = -1; // Usamos -1 para contar a partir del dia siguiente
-			int diaria = 500;
+	private void calcularValor(JDateChooser fechaEntrada, JDateChooser fechaSalida) {
+		if (fechaEntrada.getDate() != null && fechaSalida.getDate() != null) {
+			Calendar inicio = fechaEntrada.getCalendar();
+			Calendar fin = fechaSalida.getCalendar();
+			int dias = -1; //
+			int diaria = 500 ;
 			int valor;
 
-			while(inicio.before(fin)||inicio.equals(fin)) {
+			while (inicio.before(fin) || inicio.equals(fin)) {
 				dias++;
-				inicio.add(Calendar.DATE,1); //dias a ser aumentados
+				inicio.add(Calendar.DATE, 1); // días a ser aumentados
 			}
 			valor = dias * diaria;
 			txtValor.setText("$" + valor);
 		}
+
 	}
 
 	//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"	
