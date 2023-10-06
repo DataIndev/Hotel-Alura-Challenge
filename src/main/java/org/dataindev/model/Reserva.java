@@ -15,8 +15,9 @@ public class Reserva {
     public Reserva(Date checkIn, Date checkOut, String valor, String formaPago) {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-        this.valor = Float.parseFloat(valor);
         this.formaDePago = formaDePago;
+        this.valor = Float.parseFloat(valor);
+
     }
 
     public Reserva(long id, Date checkIn, Date checkOut, float valor, String formaPago) {

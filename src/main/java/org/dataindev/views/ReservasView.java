@@ -27,7 +27,10 @@ public class ReservasView extends JFrame {
 	private JLabel labelExit;
 	private JLabel labelAtras;
 
-	private ReservasController reservasController;
+	private static ReservasController reservasController;{
+		// Resto de la lógica del constructor...
+	}
+
 	/**
 	 * Launch the application.
 	 */
@@ -40,7 +43,6 @@ public class ReservasView extends JFrame {
 				e.printStackTrace();
 			}
 		});
-
 	}
 
 	/**
@@ -48,16 +50,17 @@ public class ReservasView extends JFrame {
 	 */
 	public ReservasView() {
 		super("Reserva");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/org/dataindev/views/imagenes/aH-40px.png")));
+		reservasController = new ReservasController();
+
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));//Adiciona el ícono a nuestro programa
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 560);
-		setResizable(false);
+		setResizable(false); //Evita que la ventana sea redimensionada
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.control);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		setResizable(false);
+		setContentPane(contentPane);
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		
@@ -312,21 +315,30 @@ public class ReservasView extends JFrame {
 		String fechaE = ((JTextField) txtFechaEntrada.getDateEditor().getUiComponent()).getText();
 		String fechaS = ((JTextField) txtFechaSalida.getDateEditor().getUiComponent()).getText();
 		String valorReserva = txtValor.getText();
+		Reserva nuevaReserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS),txtValor.getText(),txtFormaPago.getSelectedItem().toString());
+		reservasController.guardar(nuevaReserva);
 
 		if (fechaE.isEmpty() || fechaS.isEmpty() || valorReserva.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
 		} else {
-			Reserva nuevaReserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS), valorReserva, txtFormaPago.getSelectedItem().toString());
-			reservasController.guardar(nuevaReserva);
+			// Limpiar valorReserva para eliminar el signo de dólar y otros caracteres no numéricos
+			valorReserva = valorReserva.replaceAll("[^0-9.]", "");
 
-			JOptionPane.showMessageDialog(null, "Registro Guardado con éxito " + nuevaReserva.getId());
+			try {
+				// Convertir valorReserva a un número en coma flotante
+				float valor = Float.parseFloat(valorReserva);
 
-			RegistroHuesped huesped = new RegistroHuesped(nuevaReserva.getId());
-			huesped.setVisible(true);
-			dispose();
+
+				JOptionPane.showMessageDialog(null, "Registro Guardado con éxito " + nuevaReserva.getId());
+
+				RegistroHuesped huesped = new RegistroHuesped(nuevaReserva.getId());
+				huesped.setVisible(true);
+				dispose();
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "El valor de la reserva no es válido.");
+			}
 		}
 	}
-
 	private void calcularValor(JDateChooser fechaEntrada, JDateChooser fechaSalida) {
 		if (fechaEntrada.getDate() != null && fechaSalida.getDate() != null) {
 			Calendar inicio = fechaEntrada.getCalendar();
@@ -344,6 +356,7 @@ public class ReservasView extends JFrame {
 		}
 
 	}
+
 
 	//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"	
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
