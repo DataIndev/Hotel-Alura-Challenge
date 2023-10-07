@@ -17,7 +17,12 @@ public class ConnectionTest {
 
         ReservasController reservasController = new ReservasController();
 
-        Reserva reserva = new Reserva(Date.valueOf("2023-10-9"),Date.valueOf("2023-10-9"),3500.00F,"Efectivo");
+        Reserva reserva = new Reserva(Date.valueOf("2023-10-9"),Date.valueOf("2023-10-9"),3500,"Efectivo");
+
+        System.out.println(reserva.getCheckIn());
+        System.out.println(reserva.getCheckOut());
+        System.out.println(reserva.getValor());
+        System.out.println(reserva.getFormaDePago());
 
         reservasController.guardar(reserva);
 
