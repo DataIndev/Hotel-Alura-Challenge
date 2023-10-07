@@ -13,7 +13,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.sql.Date;
 import java.util.Calendar;
+import java.util.Objects;
 
 @SuppressWarnings("serial")
 public class ReservasView extends JFrame {
@@ -52,7 +54,7 @@ public class ReservasView extends JFrame {
 		super("Reserva");
 		reservasController = new ReservasController();
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));//Adiciona el ícono a nuestro programa
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/org/dataindev/views/imagenes/aH-40px.png")));//Adiciona el ícono a nuestro programa
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 560);
 		setResizable(false); //Evita que la ventana sea redimensionada
@@ -314,8 +316,9 @@ public class ReservasView extends JFrame {
 	private void guardarReserva() {
 		String fechaE = ((JTextField) txtFechaEntrada.getDateEditor().getUiComponent()).getText();
 		String fechaS = ((JTextField) txtFechaSalida.getDateEditor().getUiComponent()).getText();
-		String valorReserva = txtValor.getText();
-		Reserva nuevaReserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS),txtValor.getText(),txtFormaPago.getSelectedItem().toString());
+		String valorReserva = txtValor.getText().substring(1);
+
+		Reserva nuevaReserva = new Reserva(Date.valueOf(fechaE), Date.valueOf(fechaS),Float.parseFloat(valorReserva), Objects.requireNonNull(txtFormaPago.getSelectedItem()).toString());
 		reservasController.guardar(nuevaReserva);
 
 		if (fechaE.isEmpty() || fechaS.isEmpty() || valorReserva.isEmpty()) {

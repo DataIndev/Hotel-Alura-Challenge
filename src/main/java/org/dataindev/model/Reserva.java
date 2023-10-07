@@ -12,11 +12,11 @@ public class Reserva {
     private String formaDePago;
     private Integer id;
 
-    public Reserva(Date checkIn, Date checkOut, String valor, String formaPago) {
+    public Reserva(Date checkIn, Date checkOut, float valor, String formaPago) {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.formaDePago = formaDePago;
-        this.valor = Float.parseFloat(valor);
+        this.valor = valor;
 
     }
 
@@ -24,7 +24,7 @@ public class Reserva {
         this.id = (int) id;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-        this.valor = Float.parseFloat(String.valueOf(valor));
+        this.valor = valor;
         this.formaDePago = formaDePago;
     }
 

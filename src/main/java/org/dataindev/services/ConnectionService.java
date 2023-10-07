@@ -39,6 +39,7 @@ public class ConnectionService {
 
     public Connection recoveryConnection(){
         try{
+            System.out.println("Conectanso");
             return this.dataSource.getConnection();
         }
         catch(Exception e){
